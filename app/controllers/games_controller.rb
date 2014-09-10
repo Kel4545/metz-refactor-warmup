@@ -12,7 +12,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    if @game.last_roll.any? && @game.score(@game.last_roll.map { |die| "#{die[0]}" }) == 0
+    if @game.last_roll.any? && Score.new.score(@game.last_roll.map { |die| "#{die[0]}" }, @game) == 0
       @bust = true
       @game.bust
       @game.save!
